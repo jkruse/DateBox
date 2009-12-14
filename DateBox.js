@@ -33,13 +33,14 @@
  *   1.2 - Added a few new formats.
  */
 
-/*jslint onevar: false */
 /*global window */
 
 "use strict";
 
 var DateBox = (function () {
-  var locales = {
+  var locales, l10n, dateParsePatterns;
+  
+  locales = {
     da: {
       months: 'januar februar marts april maj juni juli august september oktober november december'.split(' '),
       weekdays: 'søndag mandag tirsdag onsdag torsdag fredag lørdag'.split(' '),
@@ -96,15 +97,15 @@ var DateBox = (function () {
     }
   };
   
-  var l10n = null;
+  l10n = null;
 
   function trim(string) {
     return string.replace(/^\s+|\s+$/g, '');
   }
   
   function filter(array, test) {
-    var matches = [];
-    for (var i = 0; i < array.length; i += 1) {
+    var i, matches = [];
+    for (i = 0; i < array.length; i += 1) {
       if (test(array[i])) {
         matches[matches.length] = array[i];
       }
@@ -201,7 +202,7 @@ var DateBox = (function () {
   // Array of objects, each has 're', a regular expression and 'handler', a 
   // function for creating a date from something that matches the regular 
   // expression. Handlers may throw errors if string is unparseable. 
-  var dateParsePatterns = [
+  dateParsePatterns = [
     // Today
     {
       re: function () {
@@ -239,10 +240,11 @@ var DateBox = (function () {
         return l10n.patterns.ddmmmyyyy;
       },
       handler: function (bits) {
-        var d = new Date();
-        var dd = parseInt(bits[1], 10);
-        var mm = (undefined !== bits[2]) ? parseMonth(bits[2]) : d.getMonth();
-        var yyyy = (undefined !== bits[3]) ? parseInt(bits[3], 10) : d.getFullYear();
+        var d, dd, mm, yyyy;
+        d = new Date();
+        dd = parseInt(bits[1], 10);
+        mm = (undefined !== bits[2]) ? parseMonth(bits[2]) : d.getMonth();
+        yyyy = (undefined !== bits[3]) ? parseInt(bits[3], 10) : d.getFullYear();
 
         if (dateIsValid(yyyy, mm, dd)) {
           return new Date(yyyy, mm, dd);
@@ -255,10 +257,11 @@ var DateBox = (function () {
         return l10n.patterns.mmmddyyyy;
       },
       handler: function (bits) {
-        var d = new Date();
-        var dd = parseInt(bits[2], 10);
-        var mm = parseMonth(bits[1]);
-        var yyyy = (undefined !== bits[3]) ? parseInt(bits[3], 10) : d.getFullYear(); 
+        var d, dd, mm, yyyy;
+        d = new Date();
+        dd = parseInt(bits[2], 10);
+        mm = parseMonth(bits[1]);
+        yyyy = (undefined !== bits[3]) ? parseInt(bits[3], 10) : d.getFullYear(); 
 
         if (dateIsValid(yyyy, mm, dd)) {
           return new Date(yyyy, mm, dd);
@@ -271,10 +274,11 @@ var DateBox = (function () {
         return l10n.patterns.next;
       },
       handler: function (bits) {
-        var d = new Date();
-        var day = d.getDay();
-        var newDay = parseWeekday(bits[1]);
-        var addDays = newDay - day;
+        var d, day, newDay, addDays;
+        d = new Date();
+        day = d.getDay();
+        newDay = parseWeekday(bits[1]);
+        addDays = newDay - day;
         if (newDay <= day) {
           addDays += 7;
         }
@@ -288,12 +292,13 @@ var DateBox = (function () {
         return l10n.patterns.last;
       },
       handler: function (bits) {
-        var d = new Date();
-        var wd = d.getDay();
-        var nwd = parseWeekday(bits[1]);
+        var d, wd, nwd, addDays;
+        d = new Date();
+        wd = d.getDay();
+        nwd = parseWeekday(bits[1]);
 
         // determine the number of days to subtract to get last weekday
-        var addDays = (-1 * (wd + 7 - nwd)) % 7;
+        addDays = (-1 * (wd + 7 - nwd)) % 7;
 
         // above calculate 0 if weekdays are the same so we have to change this to 7
         if (0 === addDays) {
@@ -310,10 +315,11 @@ var DateBox = (function () {
       re: /^(\d{1,2})[\/\-](\d{1,2})(?:[\/\-](\d{2}|\d{4}))?$/,
       handler: function (bits) {
         if (l10n.euro) {
-          var d = new Date();
-          var dd = parseInt(bits[1], 10);
-          var mm = parseInt(bits[2], 10) - 1;
-          var yyyy = (undefined !== bits[3]) ? parseInt(bits[3], 10) : d.getFullYear();
+          var d, dd, mm, yyyy;
+          d = new Date();
+          dd = parseInt(bits[1], 10);
+          mm = parseInt(bits[2], 10) - 1;
+          yyyy = (undefined !== bits[3]) ? parseInt(bits[3], 10) : d.getFullYear();
           if (undefined !== bits[3] && 2 === bits[3].length) {
             yyyy = d.getFullYear() - (d.getFullYear() % 100) + yyyy;
           }
@@ -329,10 +335,11 @@ var DateBox = (function () {
       re: /^(\d{1,2})[\/\-](\d{1,2})(?:[\/\-](\d{2}|\d{4}))?$/,
       handler: function (bits) {
         if (l10n.us) {
-          var d = new Date();
-          var dd = parseInt(bits[2], 10);
-          var mm = parseInt(bits[1], 10) - 1;
-          var yyyy = (undefined !== bits[3]) ? parseInt(bits[3], 10) : d.getFullYear();
+          var d, dd, mm, yyyy;
+          d = new Date();
+          dd = parseInt(bits[2], 10);
+          mm = parseInt(bits[1], 10) - 1;
+          yyyy = (undefined !== bits[3]) ? parseInt(bits[3], 10) : d.getFullYear();
           if (undefined !== bits[3] && 2 === bits[3].length) {
             yyyy = d.getFullYear() - (d.getFullYear() % 100) + yyyy;
           }
@@ -348,9 +355,10 @@ var DateBox = (function () {
       re: /^(\d{4})-(\d{1,2})-(\d{1,2})$/,
       handler: function (bits) {
         if (l10n.iso) {
-          var dd = parseInt(bits[3], 10);
-          var mm = parseInt(bits[2], 10) - 1;
-          var yyyy = parseInt(bits[1], 10);
+          var dd, mm, yyyy;
+          dd = parseInt(bits[3], 10);
+          mm = parseInt(bits[2], 10) - 1;
+          yyyy = parseInt(bits[1], 10);
 
           if (dateIsValid(yyyy, mm, dd)) {
             return new Date(yyyy, mm, dd);
@@ -362,23 +370,25 @@ var DateBox = (function () {
 
   // Parses date string input
   function parseDateString(strDateInput) {
+    var i, re, handler, bits, result;
+    
     // cycle through date parse patterns
-    for (var i = 0; i < dateParsePatterns.length; i += 1) {
+    for (i = 0; i < dateParsePatterns.length; i += 1) {
       // get regular expression for this pattern
-      var re = dateParsePatterns[i].re;
+      re = dateParsePatterns[i].re;
       if ('function' === typeof re && 'Function' === re.constructor.name) { // RegExp's have type "function" in Safari
         re = re();
       }
       
       // get handler function for this pattern
-      var handler = dateParsePatterns[i].handler;
+      handler = dateParsePatterns[i].handler;
       
       // parse input using regular expression
-      var bits = re.exec(strDateInput);
+      bits = re.exec(strDateInput);
       
       // if there was a match
       if (bits) {
-        var result = handler(bits);
+        result = handler(bits);
         if (result) {
           // return the result of the handler function (which constitutes bits into a date)
           return result;
@@ -445,10 +455,10 @@ var DateBox = (function () {
   }
 
   function onKeyDown(e) {
+    var key, input, d;
     e = e || window.event;
-    var key = (e.which) ? e.which : e.keyCode;
-    var input = e.target || e.srcElement;
-    var d;
+    key = (e.which) ? e.which : e.keyCode;
+    input = e.target || e.srcElement;
 
     if ('' !== input.value) {
       switch (key) {
@@ -469,11 +479,12 @@ var DateBox = (function () {
   }
 
   function onMouseScroll(e) {
+    var input, d;
     e = e || window.event;
-    var input = e.target || e.srcElement;
+    input = e.target || e.srcElement;
 
     if ('' !== input.value) {
-      var d = parseDateString(input.value);
+      d = parseDateString(input.value);
       if (e.wheelDelta <= 0 || e.detail > 0) {
         d.setDate(d.getDate() + 1);
       } else {
