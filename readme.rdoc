@@ -1,4 +1,4 @@
-=DateBox
+=DateBox.js
 ===by Jakob Kruse <kruse@kruse-net.dk>
 
 For easy date entry into form input elements.
@@ -22,16 +22,24 @@ or an error message if the contents of the input can't be parsed.
 
 ===History
 
-1.5:: First release on github.
-      Added localization support, English and Danish locales.
-      Removed external dependencies.
-      Chrome and Safari support.
-      Doubleclick inserts todays date.
-      Supports both US and European date formats (not at the same time though)
+====1.5
 
-1.4:: Some date formats gave errors in Mozilla, now fixed.
-      Added mouse wheel scroll handling.
+* First release on github.
+* Added localization support, English and Danish locales.
+* Removed external dependencies.
+* Chrome and Safari support.
+* Doubleclick inserts todays date.
+* Supports both US and European date formats (not at the same time though)
 
-1.3:: Empty input no longer shows error.
+====1.4
 
-1.2:: Added a few new formats.
+* Some date formats gave errors in Mozilla, now fixed.
+* Added mouse wheel scroll handling.
+
+====1.3
+
+* Empty input no longer shows error.
+
+====1.2
+
+* Added a few new formats.
