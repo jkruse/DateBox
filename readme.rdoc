@@ -8,7 +8,7 @@ For easy date entry into form input elements.
 * A rewrite by Will Rickards (2005-02-04) of:
 
 * 'Magic' date parsing, by Simon Willison (6th October 2003)
-  http://simon.incutio.com/archive/2003/10/06/betterDateInput
+  http://simonwillison.net/2003/Oct/6/betterDateInput/
 
 ===Usage
 
@@ -22,16 +22,16 @@ or an error message if the contents of the input can't be parsed.
 
 ===History
 
-1.5:: * First release on github.
-      * Added localization support, English and Danish locales.
-      * Removed external dependencies.
-      * Chrome and Safari support.
-      * Doubleclick inserts todays date.
-      * Supports both US and European date formats (not at the same time though)
+1.5:: First release on github.
+      Added localization support, English and Danish locales.
+      Removed external dependencies.
+      Chrome and Safari support.
+      Doubleclick inserts todays date.
+      Supports both US and European date formats (not at the same time though)
 
-1.4:: * Some date formats gave errors in Mozilla, now fixed.
-      * Added mouse wheel scroll handling.
+1.4:: Some date formats gave errors in Mozilla, now fixed.
+      Added mouse wheel scroll handling.
 
-1.3:: * Empty input no longer shows error.
+1.3:: Empty input no longer shows error.
 
-1.2:: * Added a few new formats.
+1.2:: Added a few new formats.
