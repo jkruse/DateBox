@@ -1,36 +1,6 @@
 ﻿/**
- * 'DateBox' object - by Jakob Kruse <kruse@kruse-net.dk>
+ * DateBox.js - by Jakob Kruse <kruse@kruse-net.dk>
  * For easy date entry into form input elements.
- *
- * Based on:
- *
- *   A rewrite by Will Rickards (2005-02-04) of
- *
- *   'Magic' date parsing, by Simon Willison (6th October 2003)
- *   http://simon.incutio.com/archive/2003/10/06/betterDateInput
- *
- * Usage:
- *
- *   DateBox.register(obj);
- *
- *   Where 'obj' is an <input type="text" /> element, or the id of one.
- *   A span will be created dynamically after the input element.
- *   The span will use the CSS classes: DateBoxControlMsg, DateBoxControlErrorMsg.
- *   This span will contain either a formatted date (according to your browser locale),
- *   or an error message if the contents of the input can't be parsed.
- *
- * History:
- *
- *   1.5 - First release on github.
- *         Added localization support, English and Danish locales.
- *         Removed external dependencies.
- *         Chrome and Safari support.
- *         Doubleclick inserts todays date.
- *         Supports both US and European date formats (not at the same time though)
- *   1.4 - Some date formats gave errors in Mozilla, now fixed.
- *         Added mouse wheel scroll handling.
- *   1.3 - Empty input no longer shows error.
- *   1.2 - Added a few new formats.
  */
 
 /*global window */

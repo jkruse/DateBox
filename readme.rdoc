@@ -15,10 +15,36 @@ For easy date entry into form input elements.
   DateBox.register(obj);
 
 Where 'obj' is an <input type="text" /> element, or the id of one.
+
+==What you get
+
+The input field will recognize date formats such as:
+
+* today
+* tomorrow
+* yesterday
+* last tuesday
+* next saturday
+* 4
+* 4th jan
+* 4th jan 2010
+* jan 4
+* jan 4 2010
+* 1-4
+* 1-4-10
+* 1-4-2010
+* 2010-4-1
+
+... or variantions thereof depending on the chosen locale. Also:
+
+* Double-clicking the field (when empty) will insert todays date
+* Scrolling the mouse wheel while hovering the field (when not empty) will increase or decrease the date
+* Pressing <up> or <down> in the field (when not empty) will increase or decrease the date
+
 A span will be created dynamically after the input element.
-The span will use the CSS classes: DateBoxControlMsg, DateBoxControlErrorMsg.
+The span will use the CSS classes 'DateBoxControlMsg' and 'DateBoxControlErrorMsg'.
 This span will contain either a formatted date (according to your browser locale),
-or an error message if the contents of the input can't be parsed.
+or an error message if the contents of the input can't be parsed, or is not a valid date.
 
 ==History
 
