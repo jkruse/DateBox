@@ -544,7 +544,7 @@ var DateBox = (function () {
   setLocale('en');
 
   return {
-    version: '1.5',
+    version: '1.5b1',
     register: register,
     setLocale: setLocale
   };
