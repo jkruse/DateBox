@@ -346,7 +346,7 @@ var DateBox = (function () {
     for (i = 0; i < dateParsePatterns.length; i += 1) {
       // get regular expression for this pattern
       re = dateParsePatterns[i].re;
-      if ('function' === typeof re && 'Function' === re.constructor.name) { // RegExp's have type "function" in Safari
+      if ('function' === typeof re && 'RegExp' !== re.constructor.name) { // RegExp's have type "function" in Safari
         re = re();
       }
       
